@@ -12,21 +12,23 @@
 
 require('./snoopdog.php');
 
-SnoopDog::run("tcp://irc.freenode.com:6667", function() {
+SnoopDog::run("tcp://irc.freenode.net:6667", function() {
   SnoopDog::command('USER snoopDog bot github.com/tricknik/snoopDog :IRC Logger Bot');
-  SnoopDog::command('NICK MaxMusterHund', SnoopDog::$pong);
-  SnoopDog::command('JOIN #snoopdog');
-  SnoopDog::command('PRIVMSG #snoopdog :WHAT UP DOGS?!');
+  #SnoopDog::command('NICK MaxMusterHund', SnoopDog::$pong);
+  SnoopDog::command('NICK MaxMusterHund');
   SnoopDog::listen(function($line) {
      echo ">> " . implode('|',$line);
      if ($line && is_array($line)) {
        switch ($line[1]) {
+        case '001': 
+          SnoopDog::command('JOIN #snoopdog');
+  	  SnoopDog::command('PRIVMSG #snoopdog :WHAT UP DOGS?!');
+        break;
         case 'PRIVMSG': 
           # can I haz log?
           $user = SnoopDog::parse_nick($line[0]);
           $logline = "<b>${user}</b>" . trim(implode(" ", array_slice($line, 3))) . "<br />\n";
           $logfile = dirname(__FILE__) . '/' . $line[2] . '_' . date("Y-m-d");
-          echo ":: " . $logfile;
           file_put_contents($logfile, $logline, FILE_APPEND | LOCK_EX);
         break;
         case 'JOIN': 
