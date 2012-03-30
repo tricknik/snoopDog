@@ -33,6 +33,12 @@ Class SnoopDog {
     }
   }
 
+  function parse_nick($user) {
+    $user = explode('!', $user);
+    $user = substr($user[0], 1);
+    return $user;
+  }
+
   public static function listen($callback) {
     while (!feof(SnoopDog::$server)) {
       $data = fgets(SnoopDog::$server, 256);
