@@ -21,7 +21,7 @@ SnoopDog::run("tcp://irc.pirateirc.net:6667", function() {
        switch ($line[1]) {
         case '001': 
           SnoopDog::command('JOIN #telekommunisten');
-  	  SnoopDog::command('PRIVMSG #telekommunisten :was tun, comrads??!');
+  	  SnoopDog::command('PRIVMSG #telekommunisten :Was tun, comrades??!');
         break;
         case 'PRIVMSG': 
           # can I haz log?
