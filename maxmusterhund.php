@@ -12,17 +12,16 @@
 
 require('./snoopdog.php');
 
-SnoopDog::run("tcp://irc.freenode.net:6667", function() {
+SnoopDog::run("tcp://irc.pirateirc.net:6667", function() {
   SnoopDog::command('USER snoopDog bot github.com/tricknik/snoopDog :IRC Logger Bot');
-  #SnoopDog::command('NICK MaxMusterHund', SnoopDog::$pong);
   SnoopDog::command('NICK MaxMusterHund');
   SnoopDog::listen(function($line) {
      echo ">> " . implode('|',$line);
      if ($line && is_array($line)) {
        switch ($line[1]) {
         case '001': 
-          SnoopDog::command('JOIN #snoopdog');
-  	  SnoopDog::command('PRIVMSG #snoopdog :WHAT UP DOGS?!');
+          SnoopDog::command('JOIN #telekommunisten');
+  	  SnoopDog::command('PRIVMSG #telekommunisten :was tun, comrads??!');
         break;
         case 'PRIVMSG': 
           # can I haz log?
