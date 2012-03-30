@@ -33,7 +33,7 @@ Class SnoopDog {
     }
   }
 
-  function parse_nick($user) {
+  public static function parse_nick($user) {
     $user = explode('!', $user);
     $user = substr($user[0], 1);
     return $user;
