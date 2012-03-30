@@ -28,6 +28,7 @@ SnoopDog::run("tcp://irc.freenode.com:6667", function() {
           $logfile = dirname(__FILE__) . '/' . $line[2] . '_' . date("Y-m-d");
           echo ":: " . $logfile;
           file_put_contents($logfile, $logline, FILE_APPEND | LOCK_EX);
+        break;
         case 'JOIN': 
           # holla at my homies
           $user = SnoopDog::parse_nick($line[0]);
